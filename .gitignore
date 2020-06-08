@@ -1,1 +1,6 @@
-mosquitto/log/
+/mosquitto/log/
+
+
+config/*
+!config/*.yaml
+!config/*.xml

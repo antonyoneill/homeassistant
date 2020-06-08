@@ -1,0 +1,36 @@
+homeassistant:
+  name: Home
+  latitude: 51.496530
+  longitude: -0.097310
+  elevation: 6
+  unit_system: metric
+  time_zone: Europe/London
+  external_url: !secret hass_external_url
+  internal_url: !secret hass_external_url
+  whitelist_external_dirs:
+    - /tmp
+
+# Configure a default setup of Home Assistant (frontend, api, etc)
+default_config:
+
+# Text to speech
+tts:
+  - platform: google_translate
+
+group: !include groups.yaml
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml
+
+zwave:
+    usb_path: /dev/ttyAMA0
+    device_config: !include zwave_device_config.yaml
+    network_key: !secret zwave_network_key
+
+light: !include lights.yaml
+
+device_tracker:
+  - platform: fritz
+    track_new_devices: True
+    host: 192.168.0.1
+

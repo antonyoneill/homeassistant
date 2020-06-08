@@ -1,0 +1,13 @@
+  - platform: mqtt
+    name: "Lounge Lamp"
+    state_topic: "stat/lamp/RESULT"  
+    value_template: "{{ value_json.POWER }}"
+    command_topic: "cmnd/lamp/POWER"
+    payload_on: "ON"
+    payload_off: "OFF"
+    availability_topic: "tele/lamp/LWT"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+    qos: 1
+    retain: false
+

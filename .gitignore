@@ -4,3 +4,7 @@
 config/*
 !config/*.yaml
 !config/*.xml
+config/known_devices.yaml
+config/secrets.yaml
+config/zwcfg_*.xml
+config/zwscene.xml

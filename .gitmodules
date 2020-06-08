@@ -1,0 +1,3 @@
+[submodule "config/community/lovelace-slider-entity-row"]
+	path = config/community/lovelace-slider-entity-row
+	url = git@github.com:thomasloven/lovelace-slider-entity-row.git

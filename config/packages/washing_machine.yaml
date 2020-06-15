@@ -1,0 +1,72 @@
+sensor:
+  - platform: mqtt
+    name: "Washing Machine Energy Today"
+    state_topic: "tele/washing/SENSOR"
+    value_template: '{{ value_json["ENERGY"]["Today"] }}'
+    unit_of_measurement: "kWh"
+  - platform: mqtt
+    name: "Washing Machine Power"
+    state_topic: "tele/washing/SENSOR"
+    value_template: '{{ value_json["ENERGY"]["Power"] }}'
+    unit_of_measurement: "W"
+  - platform: mqtt
+    name: "Washing Machine Voltage"
+    state_topic: "tele/washing/SENSOR"
+    value_template: '{{ value_json["ENERGY"]["Voltage"] }}'
+    unit_of_measurement: "V"
+  - platform: mqtt
+    name: "Washing Machine Current"
+    state_topic: "tele/washing/SENSOR"
+    value_template: '{{ value_json["ENERGY"]["Current"] }}'
+    unit_of_measurement: "A"
+    
+group:
+  washing_machine:
+    entities:
+      - sensor.washing_machine_energy_today
+      - sensor.washing_machine_power
+      - sensor.washing_machine_voltage
+      - sensor.washing_machine_current
+
+input_boolean:
+  washing_machine_is_running:
+    name: 'Washing machine is running'
+  washing_machine_is_full:
+    name: 'Washing machine is full'
+
+alert:
+  washing_machine_is_full:
+    name: Washing machine needs emptying
+    done_message: Washing machine is empty
+    entity_id: input_boolean.washing_machine_is_full
+    state: 'on'
+    repeat: 5
+    can_acknowledge: true
+    skip_first: false
+    notifiers:
+      - mobile_app_sm_g975f
+
+automation:
+  - alias: Washing Machine Off
+    trigger:
+      below: '2'
+      for: '00:00:10'
+      entity_id: sensor.washing_machine_power
+      platform: numeric_state
+    action:
+      - service: input_boolean.turn_off
+        data:
+          entity_id: input_boolean.washing_machine_is_running
+      - service: input_boolean.turn_on
+        data:
+          entity_id: input_boolean.washing_machine_is_full
+  - id: washing_on
+    alias: Washing Machine On
+    trigger:
+      above: '5'
+      entity_id: sensor.washing_machine_power
+      platform: numeric_state
+    action:
+      service: input_boolean.turn_on
+      data:
+        entity_id: input_boolean.washing_machine_is_running

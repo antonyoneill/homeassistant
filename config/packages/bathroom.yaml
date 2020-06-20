@@ -1,0 +1,32 @@
+automation:
+  - id: 1592429696929dsfs
+    alias: Bathroom Fan Off
+    description: ''
+    trigger:
+    - entity_id: light.bathroom_light_level_6
+      for: 00:02:00
+      platform: state
+      to: 'off'
+    condition: []
+    action:
+    - device_id: 975051d5b52e4c1cb5a3f2df4aa538ce
+      domain: switch
+      entity_id: switch.bathroom_fan_switch_3
+      type: turn_off
+  - id: '1592429696929'
+    alias: Bathroom Fan On
+    description: ''
+    trigger:
+    - entity_id: light.bathroom_light_level_6
+      for: 00:00:15
+      platform: state
+      to: 'on'
+    condition:
+    - after: 06:00
+      before: '23:30'
+      condition: time
+    action:
+    - device_id: 975051d5b52e4c1cb5a3f2df4aa538ce
+      domain: switch
+      entity_id: switch.bathroom_fan_switch_3
+      type: turn_on

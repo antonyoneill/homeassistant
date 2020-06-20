@@ -39,12 +39,28 @@ group:
       - sensor.washing_machine_current
       - binary_sensor.washing_machine_running
 
+input_boolean:
+  washing_machine_needs_emptying:
+    name: Washing machine needs emptying
+    icon: mdi:basket-fill
+
+automation:
+  - id: washing_machine_alert_to_toggle
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.washing_machine_running
+        to: 'off'
+    action:
+      service: input_boolean.turn_on
+      data:
+        entity_id: input_boolean.washing_machine_needs_emptying
+
 alert:
   washing_machine_needs_emptying:
     name: Washing machine needs emptying
     done_message: Washing machine is empty
-    entity_id: binary_sensor.washing_machine_running
-    state: 'off'
+    entity_id: input_boolean.washing_machine_needs_emptying
+    state: 'on'
     repeat:
       - 5
       - 10

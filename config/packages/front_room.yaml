@@ -1,0 +1,26 @@
+
+automation:
+  - id: 36d89286-74af-4f5a-9687-ba9046ef70c0
+    alias: Bottom Left Double Tap
+    trigger:
+    - event_data:
+        scene_id: 14
+      event_type: zwave.scene_activated
+      platform: event
+    action:
+    - data_template:
+        level: error
+        message: Scene to 14
+      service: system_log.write
+    - device_id: 0b840fc0d5924903be494f3fda187d21
+      domain: light
+      entity_id: light.fibaro_system_fgd212_dimmer_2_level_4
+      type: turn_off
+    - device_id: ea6f01621a9a4daf91211d6a9dadcadf
+      domain: light
+      entity_id: light.fibaro_system_fgd212_dimmer_2_level_3
+      type: turn_off
+    - data:
+        payload: 'OFF'
+        topic: cmnd/lamp/POWER
+      service: mqtt.publish

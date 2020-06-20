@@ -22,6 +22,3 @@
       payload: 'OFF'
       topic: cmnd/lamp/POWER
     service: mqtt.publish
-  - data: {}
-    entity_id: media_player.samsung_tv_remote
-    service: media_player.turn_off

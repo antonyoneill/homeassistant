@@ -20,6 +20,16 @@ sensor:
     value_template: '{{ value_json["ENERGY"]["Current"] }}'
     unit_of_measurement: "A"
     
+binary_sensor:
+  - platform: template
+    sensors:
+      washing_machine_running:
+        friendly_name: "Washing Machine Running"
+        delay_off:
+          minutes: 2
+        value_template: >-
+          {{ states('sensor.washing_machine_power')|float > 0 }}
+
 group:
   washing_machine:
     entities:
@@ -27,46 +37,26 @@ group:
       - sensor.washing_machine_power
       - sensor.washing_machine_voltage
       - sensor.washing_machine_current
-
-input_boolean:
-  washing_machine_is_running:
-    name: 'Washing machine is running'
-  washing_machine_is_full:
-    name: 'Washing machine is full'
+      - binary_sensor.washing_machine_running
 
 alert:
-  washing_machine_is_full:
+  washing_machine_needs_emptying:
     name: Washing machine needs emptying
     done_message: Washing machine is empty
-    entity_id: input_boolean.washing_machine_is_full
-    state: 'on'
-    repeat: 5
+    entity_id: binary_sensor.washing_machine_running
+    state: 'off'
+    repeat:
+      - 5
+      - 10
+      - 30
+      - 60
     can_acknowledge: true
     skip_first: false
     notifiers:
       - mobile_app_sm_g975f
 
-automation:
-  - alias: Washing Machine Off
-    trigger:
-      below: '2'
-      for: '00:00:10'
-      entity_id: sensor.washing_machine_power
-      platform: numeric_state
-    action:
-      - service: input_boolean.turn_off
-        data:
-          entity_id: input_boolean.washing_machine_is_running
-      - service: input_boolean.turn_on
-        data:
-          entity_id: input_boolean.washing_machine_is_full
-  - id: washing_on
-    alias: Washing Machine On
-    trigger:
-      above: '5'
-      entity_id: sensor.washing_machine_power
-      platform: numeric_state
-    action:
-      service: input_boolean.turn_on
-      data:
-        entity_id: input_boolean.washing_machine_is_running
+homeassistant:
+  customize:
+    binary_sensor.washing_machine_running:
+      device_class: moving
+      icon: 'mdi:washing-machine'

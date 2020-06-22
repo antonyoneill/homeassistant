@@ -1,3 +1,6 @@
 [submodule "config/community/lovelace-slider-entity-row"]
 	path = config/community/lovelace-slider-entity-row
 	url = git@github.com:thomasloven/lovelace-slider-entity-row.git
+[submodule "config/community/hass-circadian_lighting"]
+	path = config/community/hass-circadian_lighting
+	url = git@github.com:claytonjn/hass-circadian_lighting.git

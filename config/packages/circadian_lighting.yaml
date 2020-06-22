@@ -1,0 +1,12 @@
+circadian_lighting:
+
+switch:
+  - name: Front Room Circadian
+    platform: circadian_lighting
+    lights_brightness:
+      - light.kitchen
+      - light.lounge
+  - name: Bedroom Circadian
+    platform: circadian_lighting
+    lights_brightness:
+      - light.bedroom

@@ -6,6 +6,7 @@ services:
     image: homeassistant/home-assistant:stable
     volumes:
       - ./config:/config
+      - /dev/bus/usb:/dev/bus/usb
     restart: always
     environment:
       USER_ID: 1001

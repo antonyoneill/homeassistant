@@ -1,0 +1,42 @@
+views:
+  - badges: []
+    cards:
+      - entities:
+          - entity: light.lounge
+            type: 'custom:slider-entity-row'
+            toggle: true
+          - entity: light.kitchen
+            type: 'custom:slider-entity-row'
+            toggle: true
+          - type: divider
+          - entity: switch.circadian_lighting_front_room_circadian
+        show_header_toggle: false
+        title: Lounge
+        type: entities
+      - entities:
+          - entity: light.bedroom
+            type: 'custom:slider-entity-row'
+            toggle: true
+          - type: divider
+          - entity: switch.circadian_lighting_bedroom_circadian
+        show_header_toggle: false
+        title: Bedroom
+        type: entities
+      - entities:
+          - entity: light.bathroom
+          - entity: switch.bathroom_fan
+        show_header_toggle: false
+        title: Bathroom
+        type: entities
+      - entities:
+          - entity: binary_sensor.washing_machine_running
+          - type: divider
+          - entity: input_boolean.auto_start_washing_machine
+          - entity: input_boolean.auto_start_washing_machine_resume
+          - entity: input_datetime.washing_machine_start
+        show_header_toggle: false
+        title: Washing Machine
+        type: entities
+    path: home
+    title: Home
+

@@ -1,0 +1,23 @@
+zwave:
+  usb_path: /dev/ttyAMA0
+  device_config: !include zwave_device_config.yaml
+  network_key: !secret zwave_network_key
+
+homeassistant:
+  customize:
+    light.lounge:
+      friendly_name: 'Lounge'
+      icon: 'mdi:wall-sconce-flat'
+    light.kitchen:
+      friendly_name: 'Kitchen'
+      icon: 'mdi:wall-sconce-flat'
+    light.bathroom:
+      friendly_name: 'Bathroom'
+      icon: 'mdi:wall-sconce-flat'
+    light.bedroom:
+      friendly_name: 'Bedroom'
+      icon: 'mdi:globe-light'
+    switch.bathroom_fan:
+      friendly_name: 'Bathroom Fan'
+      icon: 'mdi:fan'
+

@@ -1,0 +1,91 @@
+script:
+  alarm_front_room:
+    alias: Alert Front Room
+    sequence:
+    - brightness_pct: 100
+      device_id: ea6f01621a9a4daf91211d6a9dadcadf
+      domain: light
+      entity_id: light.lounge
+      type: turn_on
+    - device_id: 0b840fc0d5924903be494f3fda187d21
+      domain: light
+      entity_id: light.kitchen
+      type: turn_off
+    - service: light.turn_off
+      data:
+        entity_id: light.lounge_lamp
+    - delay:
+        milliseconds: 1
+    - device_id: ea6f01621a9a4daf91211d6a9dadcadf
+      domain: light
+      entity_id: light.lounge
+      type: turn_off
+    - brightness_pct: 100
+      device_id: 0b840fc0d5924903be494f3fda187d21
+      domain: light
+      entity_id: light.kitchen
+      type: turn_on
+    - service: light.turn_on
+      data:
+        entity_id: light.lounge_lamp
+    - delay:
+        milliseconds: 1
+    - brightness_pct: 100
+      device_id: ea6f01621a9a4daf91211d6a9dadcadf
+      domain: light
+      entity_id: light.lounge
+      type: turn_on
+    - device_id: 0b840fc0d5924903be494f3fda187d21
+      domain: light
+      entity_id: light.kitchen
+      type: turn_off
+    - service: light.turn_off
+      data:
+        entity_id: light.lounge_lamp
+    - delay:
+        milliseconds: 1
+    - device_id: ea6f01621a9a4daf91211d6a9dadcadf
+      domain: light
+      entity_id: light.lounge
+      type: turn_off
+    - brightness_pct: 100
+      device_id: 0b840fc0d5924903be494f3fda187d21
+      domain: light
+      entity_id: light.kitchen
+      type: turn_on
+    - service: light.turn_on
+      data:
+        entity_id: light.lounge_lamp
+    - delay:
+        milliseconds: 1
+    - brightness_pct: 100
+      device_id: ea6f01621a9a4daf91211d6a9dadcadf
+      domain: light
+      entity_id: light.lounge
+      type: turn_on
+    - device_id: 0b840fc0d5924903be494f3fda187d21
+      domain: light
+      entity_id: light.kitchen
+      type: turn_off
+    - service: light.turn_off
+      data:
+        entity_id: light.lounge_lamp
+    - delay:
+        milliseconds: 1
+    - device_id: ea6f01621a9a4daf91211d6a9dadcadf
+      domain: light
+      entity_id: light.lounge
+      type: turn_off
+    - brightness_pct: 100
+      device_id: 0b840fc0d5924903be494f3fda187d21
+      domain: light
+      entity_id: light.kitchen
+      type: turn_on
+    - service: light.turn_on
+      data:
+        entity_id: light.lounge_lamp
+    - delay:
+        milliseconds: 1
+
+
+

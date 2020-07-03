@@ -10,3 +10,8 @@ switch:
     platform: circadian_lighting
     lights_brightness:
       - light.bedroom
+
+homeassistant:
+  customize_glob:
+    "switch.circadian_lighting_*":
+      friendly_name: 'Auto Brightness'

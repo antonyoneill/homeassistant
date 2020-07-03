@@ -1,6 +1,7 @@
+light:
   - platform: mqtt
     name: "Lounge Lamp"
-    state_topic: "stat/lamp/RESULT"  
+    state_topic: "stat/lamp/RESULT"
     value_template: "{{ value_json.POWER }}"
     command_topic: "cmnd/lamp/POWER"
     payload_on: "ON"
@@ -11,3 +12,7 @@
     qos: 1
     retain: false
 
+homeassistant:
+  customize:
+    light.lounge_lamp:
+      icon: 'mdi:floor-lamp'

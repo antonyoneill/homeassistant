@@ -73,3 +73,61 @@ views:
         type: entity
     path: physical
     title: Physical
+  - badges: []
+    cards:
+      - content: >-
+
+          {% set next = state_attr('sensor.next_train_to_hnh', 'next_trains')[0]
+          %}
+
+
+          **Destination:** {{ next.destination_name }}
+
+          **Platform:** {{ next.platform }}
+
+          **Time:** {% if next.scheduled == next.estimated -%}
+            {{ next.estimated }}
+          {% else -%}
+            {{ next.scheduled }} (expected: {{ next.estimated }})
+          {% endif -%}
+
+
+          {% set following = state_attr('sensor.next_train_to_hnh',
+          'next_trains')[1] %}
+
+          **Next:** {% if following.scheduled == following.estimated -%}
+            {{ following.estimated }}
+          {% else -%}
+            {{ following.scheduled }} (expected: {{ following.estimated }})
+          {% endif -%}
+        title: Next Train to Herne Hill
+        type: markdown
+      - content: >-
+
+          {% set next = state_attr('sensor.next_train_to_srt', 'next_trains')[0]
+          %}
+
+
+          **Destination:** {{ next.destination_name }}
+
+          **Platform:** {{ next.platform }}
+
+          **Time:** {% if next.scheduled == next.estimated -%}
+            {{ next.estimated }}
+          {% else -%}
+            {{ next.scheduled }} (expected: {{ next.estimated }})
+          {% endif -%}
+
+
+          {% set following = state_attr('sensor.next_train_to_srt',
+          'next_trains')[1] %}
+
+          **Next:** {% if following.scheduled == following.estimated -%}
+            {{ following.estimated }}
+          {% else -%}
+            {{ following.scheduled }} (expected: {{ following.estimated }})
+          {% endif -%}
+        title: Next Train to Shortlands
+        type: markdown
+    path: trains
+    title: Trains

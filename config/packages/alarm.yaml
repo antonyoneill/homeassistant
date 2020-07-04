@@ -19,6 +19,18 @@ automation:
     action:
       service: alarm_control_panel.alarm_trigger
       entity_id: alarm_control_panel.alarm
+  - alias: 'Trigger alarm while armed home'
+    trigger:
+      - platform: state
+        entity_id: group.home_alarm_sensors
+        to: 'on'
+    condition:
+      - condition: state
+        entity_id: alarm_control_panel.alarm
+        state: armed_home
+    action:
+      service: alarm_control_panel.alarm_trigger
+      entity_id: alarm_control_panel.alarm
 
 alert:
   alarm_triggered:

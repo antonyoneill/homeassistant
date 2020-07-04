@@ -31,6 +31,14 @@ automation:
     action:
       service: alarm_control_panel.alarm_trigger
       entity_id: alarm_control_panel.alarm
+  - alias: 'When alarm triggers'
+    trigger:
+      - platform: state
+        entity_id: alarm_control_panel.alarm
+        to: triggered
+    action:
+      service: light.turn_on
+      entity_id: all
 
 notify:
   - platform: group

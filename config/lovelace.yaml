@@ -1,9 +1,8 @@
 views:
-  - path: home
-    title: ''
-    icon: 'mdi:home'
-    badges: []
+  - badges: []
     cards:
+      - type: weather-forecast
+        entity: weather.met_office_southwark
       - card:
           entity: input_boolean.washing_machine_needs_emptying
           type: button
@@ -54,10 +53,10 @@ views:
         type: media-control
       - entity: media_player.home_group
         type: media-control
-  - path: physical
+    icon: 'mdi:home'
+    path: home
     title: ''
-    icon: 'mdi:motion-sensor'
-    badges: []
+  - badges: []
     cards:
       - entities:
           - entity: binary_sensor.hallway_motion
@@ -75,10 +74,10 @@ views:
         type: alarm-panel
       - entity: alert.alarm_triggered
         type: entity
-  - path: trains
+    icon: 'mdi:motion-sensor'
+    path: physical
     title: ''
-    icon: 'mdi:train'
-    badges: []
+  - badges: []
     cards:
       - content: >-
 
@@ -134,3 +133,6 @@ views:
           {% endif -%}
         title: Next Train to Shortlands
         type: markdown
+    icon: 'mdi:train'
+    path: trains
+    title: ''

@@ -1,8 +1,8 @@
 views:
   - badges: []
     cards:
-      - type: weather-forecast
-        entity: weather.met_office_southwark
+      - entity: weather.met_office_southwark
+        type: weather-forecast
       - card:
           entity: input_boolean.washing_machine_needs_emptying
           type: button
@@ -47,36 +47,18 @@ views:
         show_header_toggle: false
         title: Washing Machine
         type: entities
+    icon: 'mdi:home'
+    path: home
+    title: ''
+  - icon: 'mdi:music'
+    badges: []
+    cards:
       - entity: media_player.samsung_tv_remote
         type: media-control
       - entity: media_player.living_room_speaker
         type: media-control
       - entity: media_player.home_group
         type: media-control
-    icon: 'mdi:home'
-    path: home
-    title: ''
-  - badges: []
-    cards:
-      - entities:
-          - entity: binary_sensor.hallway_motion
-          - entity: binary_sensor.front_door
-          - entity: binary_sensor.spare_room_window_break
-          - entity: binary_sensor.bedroom_left_door
-          - entity: binary_sensor.bedroom_right_door
-          - entity: binary_sensor.spare_room_window
-        title: Sensors
-        type: entities
-      - entity: alarm_control_panel.alarm
-        states:
-          - arm_home
-          - arm_away
-        type: alarm-panel
-      - entity: alert.alarm_triggered
-        type: entity
-    icon: 'mdi:motion-sensor'
-    path: physical
-    title: ''
   - badges: []
     cards:
       - content: >-
@@ -135,4 +117,25 @@ views:
         type: markdown
     icon: 'mdi:train'
     path: trains
+    title: ''
+  - badges: []
+    cards:
+      - entities:
+          - entity: binary_sensor.hallway_motion
+          - entity: binary_sensor.front_door
+          - entity: binary_sensor.spare_room_window_break
+          - entity: binary_sensor.bedroom_left_door
+          - entity: binary_sensor.bedroom_right_door
+          - entity: binary_sensor.spare_room_window
+        title: Sensors
+        type: entities
+      - entity: alarm_control_panel.alarm
+        states:
+          - arm_home
+          - arm_away
+        type: alarm-panel
+      - entity: alert.alarm_triggered
+        type: entity
+    icon: 'mdi:motion-sensor'
+    path: physical
     title: ''

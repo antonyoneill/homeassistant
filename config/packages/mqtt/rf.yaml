@@ -9,6 +9,23 @@ binary_sensor:
     payload_available: "Online"
     payload_not_available: "Offline"
     qos: 1
+  - platform: mqtt
+    name: 'Front Door'
+    state_topic: 'tele/rf/RESULT'
+    value_template: '{{ value_json.RfReceived.Data }}'
+    payload_on: !secret rf_front_door
+    payload_off: clear_front_door
+    availability_topic: "tele/rf/LWT"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+    qos: 1
+
+group:
+  physical_sensors:
+    name: Physical Sensors
+    entities:
+      - binary_sensor.hallway_motion
+      - binary_sensor.front_door
 
 automation:
   - alias: Clear Hallway Motion
@@ -23,5 +40,17 @@ automation:
         data:
           topic: tele/rf/RESULT
           payload: clear_hallway_motion
+  - alias: Clear Front Door
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.front_door
+        to: 'on'
+        for:
+          seconds: 5
+    action:
+      - service: mqtt.publish
+        data:
+          topic: tele/rf/RESULT
+          payload: clear_front_door
 
 

@@ -1,0 +1,43 @@
+alarm_control_panel:
+  - platform: manual
+    name: Alarm
+    code_template: ''
+    delay_time: 30
+    arming_time: 30
+    trigger_time: 300
+
+automation:
+  - alias: 'Trigger alarm while armed away'
+    trigger:
+      - platform: state
+        entity_id: group.away_alarm_sensors
+        to: 'on'
+    condition:
+      - condition: state
+        entity_id: alarm_control_panel.alarm
+        state: armed_away
+    action:
+      service: alarm_control_panel.alarm_trigger
+      entity_id: alarm_control_panel.alarm
+
+alert:
+  alarm_triggered:
+    name: Alarm has been triggered
+    done_message: Alarm has been reset
+    entity_id: alarm_control_panel.alarm
+    state: 'triggered'
+    repeat: 30
+    notifiers:
+      - mobile_app_sm_g975f
+
+group:
+  home_alarm_sensors:
+    name: Home Alarm Sensors
+    entities:
+      - binary_sensor.front_door
+      - binary_sensor.spare_room_window_break
+  away_alarm_sensors:
+    name: Away Alarm Sensors
+    entities:
+      - group.home_alarm_sensors
+      - binary_sensor.hallway_motion

@@ -19,6 +19,16 @@ binary_sensor:
     payload_available: "Online"
     payload_not_available: "Offline"
     qos: 1
+  - platform: mqtt
+    name: 'Spare Room Window Break'
+    state_topic: 'tele/rf/RESULT'
+    value_template: '{{ value_json.RfReceived.Data }}'
+    payload_on: !secret rf_spare_room_window_break
+    payload_off: clear_spare_room_window_break
+    availability_topic: "tele/rf/LWT"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+    qos: 1
 
 group:
   physical_sensors:
@@ -26,6 +36,7 @@ group:
     entities:
       - binary_sensor.hallway_motion
       - binary_sensor.front_door
+      - binary_sensor.spare_room_window_break
 
 automation:
   - alias: Clear Hallway Motion
@@ -52,5 +63,17 @@ automation:
         data:
           topic: tele/rf/RESULT
           payload: clear_front_door
+  - alias: Clear Spare Room Window Break
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.spare_room_window_break
+        to: 'on'
+        for:
+          seconds: 5
+    action:
+      - service: mqtt.publish
+        data:
+          topic: tele/rf/RESULT
+          payload: clear_spare_room_window_break
 
 

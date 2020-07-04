@@ -32,15 +32,32 @@ automation:
       service: alarm_control_panel.alarm_trigger
       entity_id: alarm_control_panel.alarm
 
+notify:
+  - platform: group
+    name: alarm
+    services:
+      - service: twilio_sms
+        data:
+          target:
+            - !secret antony_phone
+      - service: twilio_call
+        data:
+          target:
+            - !secret antony_phone
+      - service: mobile_app_sm_g975f
+
 alert:
   alarm_triggered:
     name: Alarm has been triggered
+    message: "Alarm triggered. {%- for item in expand('group.away_alarm_sensors') %}
+{{ item.name }}: {{ item.state }} ({{ relative_time(item.last_changed) }} ago)
+{%- endfor %}"
     done_message: Alarm has been reset
     entity_id: alarm_control_panel.alarm
     state: 'triggered'
-    repeat: 30
+    repeat: 1
     notifiers:
-      - mobile_app_sm_g975f
+      - alarm
 
 group:
   home_alarm_sensors:

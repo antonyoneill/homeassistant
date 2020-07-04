@@ -1,0 +1,11 @@
+twilio:
+  account_sid: !secret twilio_account_sid
+  auth_token: !secret twilio_auth_token
+
+notify:
+  - name: twilio_sms
+    platform: twilio_sms
+    from_number: !secret twilio_sms_from_number
+  - name: twilio_call
+    platform: twilio_call
+    from_number: !secret twilio_call_from_number

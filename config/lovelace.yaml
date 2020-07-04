@@ -1,5 +1,8 @@
 views:
-  - badges: []
+  - path: home
+    title: ''
+    icon: 'mdi:home'
+    badges: []
     cards:
       - card:
           entity: input_boolean.washing_machine_needs_emptying
@@ -51,9 +54,10 @@ views:
         type: media-control
       - entity: media_player.home_group
         type: media-control
-    path: home
-    title: Home
-  - badges: []
+  - path: physical
+    title: ''
+    icon: 'mdi:motion-sensor'
+    badges: []
     cards:
       - entities:
           - entity: binary_sensor.hallway_motion
@@ -71,9 +75,10 @@ views:
         type: alarm-panel
       - entity: alert.alarm_triggered
         type: entity
-    path: physical
-    title: Physical
-  - badges: []
+  - path: trains
+    title: ''
+    icon: 'mdi:train'
+    badges: []
     cards:
       - content: >-
 
@@ -129,5 +134,3 @@ views:
           {% endif -%}
         title: Next Train to Shortlands
         type: markdown
-    path: trains
-    title: Trains

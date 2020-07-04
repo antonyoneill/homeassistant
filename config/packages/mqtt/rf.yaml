@@ -1,0 +1,27 @@
+binary_sensor:
+  - platform: mqtt
+    name: 'Hallway Motion'
+    state_topic: 'tele/rf/RESULT'
+    value_template: '{{ value_json.RfReceived.Data }}'
+    payload_on: !secret rf_hallway_motion
+    payload_off: clear_hallway_motion
+    availability_topic: "tele/rf/LWT"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+    qos: 1
+
+automation:
+  - alias: Clear Hallway Motion
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.hallway_motion
+        to: 'on'
+        for:
+          seconds: 5
+    action:
+      - service: mqtt.publish
+        data:
+          topic: tele/rf/RESULT
+          payload: clear_hallway_motion
+
+

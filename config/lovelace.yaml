@@ -1,13 +1,13 @@
 views:
   - badges: []
     cards:
-      - type: conditional
+      - card:
+          entity: input_boolean.washing_machine_needs_emptying
+          type: button
         conditions:
           - entity: input_boolean.washing_machine_needs_emptying
             state: 'on'
-        card:
-          type: button
-          entity: input_boolean.washing_machine_needs_emptying
+        type: conditional
       - entities:
           - entity: light.kitchen
             toggle: true
@@ -45,11 +45,31 @@ views:
         show_header_toggle: false
         title: Washing Machine
         type: entities
-      - type: media-control
-        entity: media_player.samsung_tv_remote
-      - type: media-control
-        entity: media_player.living_room_speaker
-      - type: media-control
-        entity: media_player.home_group
+      - entity: media_player.samsung_tv_remote
+        type: media-control
+      - entity: media_player.living_room_speaker
+        type: media-control
+      - entity: media_player.home_group
+        type: media-control
     path: home
     title: Home
+  - badges: []
+    cards:
+      - entities:
+          - entity: binary_sensor.hallway_motion
+          - entity: binary_sensor.front_door
+          - entity: binary_sensor.spare_room_window_break
+          - entity: binary_sensor.bedroom_left_door
+          - entity: binary_sensor.bedroom_right_door
+          - entity: binary_sensor.spare_room_window
+        title: Sensors
+        type: entities
+      - entity: alarm_control_panel.alarm
+        states:
+          - arm_home
+          - arm_away
+        type: alarm-panel
+      - entity: alert.alarm_triggered
+        type: entity
+    path: physical
+    title: Physical

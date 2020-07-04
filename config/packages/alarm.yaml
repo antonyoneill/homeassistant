@@ -65,6 +65,9 @@ group:
     entities:
       - binary_sensor.front_door
       - binary_sensor.spare_room_window_break
+      - binary_sensor.bedroom_left_door
+      - binary_sensor.bedroom_right_door
+      - binary_sensor.spare_room_window
   away_alarm_sensors:
     name: Away Alarm Sensors
     entities:

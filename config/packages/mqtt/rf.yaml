@@ -8,16 +8,51 @@ binary_sensor:
     availability_topic: "tele/rf/LWT"
     payload_available: "Online"
     payload_not_available: "Offline"
+    device_class: motion
     qos: 1
   - platform: mqtt
     name: 'Front Door'
     state_topic: 'tele/rf/RESULT'
     value_template: '{{ value_json.RfReceived.Data }}'
-    payload_on: !secret rf_front_door
-    payload_off: clear_front_door
+    payload_on: !secret rf_front_door_activate
+    payload_off: !secret rf_front_door_clear
     availability_topic: "tele/rf/LWT"
     payload_available: "Online"
     payload_not_available: "Offline"
+    device_class: door
+    qos: 1
+  - platform: mqtt
+    name: 'Bedroom Left Door'
+    state_topic: 'tele/rf/RESULT'
+    value_template: '{{ value_json.RfReceived.Data }}'
+    payload_on: !secret rf_bedroom_left_door_activate
+    payload_off: !secret rf_bedroom_left_door_clear
+    availability_topic: "tele/rf/LWT"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+    device_class: door
+    qos: 1
+  - platform: mqtt
+    name: 'Bedroom Right Door'
+    state_topic: 'tele/rf/RESULT'
+    value_template: '{{ value_json.RfReceived.Data }}'
+    payload_on: !secret rf_bedroom_right_door_activate
+    payload_off: !secret rf_bedroom_right_door_clear
+    availability_topic: "tele/rf/LWT"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+    device_class: door
+    qos: 1
+  - platform: mqtt
+    name: 'Spare Room Window'
+    state_topic: 'tele/rf/RESULT'
+    value_template: '{{ value_json.RfReceived.Data }}'
+    payload_on: !secret rf_spare_room_window_activate
+    payload_off: !secret rf_spare_room_window_clear
+    availability_topic: "tele/rf/LWT"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+    device_class: window
     qos: 1
   - platform: mqtt
     name: 'Spare Room Window Break'
@@ -28,6 +63,7 @@ binary_sensor:
     availability_topic: "tele/rf/LWT"
     payload_available: "Online"
     payload_not_available: "Offline"
+    device_class: vibration
     qos: 1
 
 group:
@@ -36,6 +72,9 @@ group:
     entities:
       - binary_sensor.hallway_motion
       - binary_sensor.front_door
+      - binary_sensor.spare_room_window_break
+      - binary_sensor.bedroom_left_door
+      - binary_sensor.bedroom_right_door
       - binary_sensor.spare_room_window_break
 
 automation:
@@ -51,18 +90,6 @@ automation:
         data:
           topic: tele/rf/RESULT
           payload: clear_hallway_motion
-  - alias: Clear Front Door
-    trigger:
-      - platform: state
-        entity_id: binary_sensor.front_door
-        to: 'on'
-        for:
-          seconds: 5
-    action:
-      - service: mqtt.publish
-        data:
-          topic: tele/rf/RESULT
-          payload: clear_front_door
   - alias: Clear Spare Room Window Break
     trigger:
       - platform: state

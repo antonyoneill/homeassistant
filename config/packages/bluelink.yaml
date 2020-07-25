@@ -1,0 +1,55 @@
+device_tracker:
+  - platform: mqtt_json
+    devices:
+      kona: kona/location
+
+sensor:
+  - platform: mqtt
+    name: "Kona Battery"
+    state_topic: "kona/status"
+    value_template: '{{ value_json["battery"] }}'
+    unit_of_measurement: "%"
+    force_update: true
+  - platform: mqtt
+    name: "Kona 12v Battery"
+    state_topic: "kona/status"
+    value_template: '{{ value_json["battery-12v"] }}'
+    unit_of_measurement: "%"
+  - platform: mqtt
+    name: "Kona Range"
+    state_topic: "kona/status"
+    value_template: '{{ value_json["range"] }}'
+    unit_of_measurement: "miles"
+  - platform: template
+    sensors:
+      kona_updated:
+        friendly_name: 'Kona Updated'
+        device_class: timestamp
+        value_template: "{{ states.sensor.kona_battery.last_updated }}"
+
+binary_sensor:
+  - platform: mqtt
+    name: "Kona Locked"
+    payload_on: false
+    payload_off: true
+    state_topic: "kona/status"
+    value_template: '{{ value_json["locked"] }}'
+  - platform: mqtt
+    name: "Kona Battery Charging"
+    payload_on: true
+    payload_off: false
+    state_topic: "kona/status"
+    value_template: '{{ value_json["charging"] }}'
+
+homeassistant:
+  customize:
+    binary_sensor.kona_locked:
+      device_class: lock
+    binary_sensor.kona_battery_charging:
+      device_class: battery_charging
+      icon: mdi:ev-station
+    sensor.kona_12v_battery:
+      device_class: battery
+    sensor.kona_range:
+      icon: mdi:speedometer-medium
+

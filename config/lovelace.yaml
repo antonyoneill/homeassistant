@@ -134,8 +134,32 @@ views:
           - arm_home
           - arm_away
         type: alarm-panel
-      - entity: alert.alarm_triggered
-        type: entity
     icon: 'mdi:motion-sensor'
     path: physical
     title: ''
+  - badges: []
+    cards:
+      - entities:
+          - entity: device_tracker.kona
+        geo_location_sources: []
+        hours_to_show: 12
+        type: map
+      - entities:
+          - entity: binary_sensor.kona_locked
+            name: Locked
+          - type: divider
+          - entity: sensor.kona_battery
+            name: Battery
+          - entity: sensor.kona_12v_battery
+            name: 12v Battery
+          - entity: sensor.kona_range
+            name: Range
+          - entity: binary_sensor.kona_battery_charging
+            name: Charging
+          - type: divider
+          - entity: sensor.kona_updated
+            name: Last Updated
+            icon: 'mdi:clock'
+        title: Status
+        type: entities
+    icon: 'mdi:car'

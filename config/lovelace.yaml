@@ -40,6 +40,7 @@ views:
         type: entities
       - entities:
           - entity: binary_sensor.washing_machine_running
+          - entity: sensor.washing_machine_power
           - type: divider
           - entity: input_boolean.auto_start_washing_machine
           - entity: input_boolean.auto_start_washing_machine_resume
@@ -50,8 +51,7 @@ views:
     icon: 'mdi:home'
     path: home
     title: ''
-  - icon: 'mdi:music'
-    badges: []
+  - badges: []
     cards:
       - entity: media_player.samsung_tv_remote
         type: media-control
@@ -59,6 +59,7 @@ views:
         type: media-control
       - entity: media_player.home_group
         type: media-control
+    icon: 'mdi:music'
   - badges: []
     cards:
       - content: >-

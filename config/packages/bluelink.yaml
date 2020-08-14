@@ -5,6 +5,18 @@ device_tracker:
 
 sensor:
   - platform: mqtt
+    name: "Kona Charge Remaining"
+    state_topic: "kona/status"
+    value_template: '{{ value_json["remainingMin"] }}'
+    device_class: timestamp
+    force_update: true
+  - platform: template
+    sensors:
+      kona_charge_done:
+        friendly_name: 'Kona Charge Done'
+        device_class: timestamp
+        value_template: "{{ ((now() | as_timestamp) + (states('sensor.kona_charge_remaining') | int * 60 )) | timestamp_local  }}"
+  - platform: mqtt
     name: "Kona Battery"
     state_topic: "kona/status"
     value_template: '{{ value_json["battery"] }}'
@@ -15,6 +27,11 @@ sensor:
     state_topic: "kona/status"
     value_template: '{{ value_json["battery-12v"] }}'
     unit_of_measurement: "%"
+  - platform: mqtt
+    name: "Kona Odometer"
+    state_topic: "kona/status"
+    value_template: '{{ value_json["odometer"] }}'
+    unit_of_measurement: "miles"
   - platform: mqtt
     name: "Kona Range"
     state_topic: "kona/status"

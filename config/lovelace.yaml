@@ -159,8 +159,13 @@ views:
             name: Charging
           - type: divider
           - entity: sensor.kona_updated
-            name: Last Updated
             icon: 'mdi:clock'
+            name: Last Updated
         title: Status
+        type: entities
+      - entities:
+          - entity: sensor.simplesocket_mid
+          - entity: sensor.simplesocket_top
+        title: Street Charging
         type: entities
     icon: 'mdi:car'

@@ -1,0 +1,27 @@
+sensor:
+  - platform: command_line
+    command: !secret simplesocket_mid_command
+    name: simplesocket_mid
+    value_template: &simplesocket_value_template >-
+      {% if value == "AVAILABLE" %}
+        Free
+      {% elif value == "CHARGING" %}
+        Charging
+      {% elif value == "SUSPENDEDEV" %}
+        Squatting
+      {% endif %}
+    scan_interval: 300
+  - platform: command_line
+    command: !secret simplesocket_top_command
+    name: simplesocket_top
+    scan_interval: 300
+    value_template: *simplesocket_value_template
+
+homeassistant:
+  customize:
+    sensor.simplesocket_mid:
+      friendly_name: 'Mid'
+      icon: 'mdi:ev-station'
+    sensor.simplesocket_top:
+      friendly_name: 'Top'
+      icon: 'mdi:ev-station'

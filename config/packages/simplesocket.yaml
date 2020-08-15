@@ -7,8 +7,10 @@ sensor:
         Free
       {% elif value == "CHARGING" %}
         Charging
-      {% elif value == "SUSPENDEDEV" %}
+      {% elif value == "SUSPENDED_EV" %}
         Squatting
+      {% else %}
+        {{ value }}
       {% endif %}
     scan_interval: 300
   - platform: command_line

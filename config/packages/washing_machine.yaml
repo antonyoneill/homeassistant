@@ -22,6 +22,14 @@ sensor:
   - platform: time_date
     display_options:
       - 'time'
+  - platform: template
+    sensors:
+      washing_machine_cost_today:
+        friendly_name: "Washing Machine Cost Today"
+        value_template: >-
+          {{ '{:,.2f}'.format(states('sensor.washing_machine_energy_today')|float * states('input_number.price_per_kwh') | float) }}
+        unit_of_measurement: '£'
+        icon_template: 'mdi:currency-gbp'
 
 switch:
   - platform: switchbot

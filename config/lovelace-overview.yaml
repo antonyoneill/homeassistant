@@ -40,7 +40,11 @@ views:
         type: entities
       - entities:
           - entity: binary_sensor.washing_machine_running
+            name: Washing
           - entity: sensor.washing_machine_power
+            name: Power
+          - entity: sensor.washing_machine_cost_today
+            name: Cost Today
           - type: divider
           - entity: input_boolean.auto_start_washing_machine
           - entity: input_boolean.auto_start_washing_machine_resume

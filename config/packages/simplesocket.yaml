@@ -3,15 +3,19 @@ sensor:
     command: !secret simplesocket_mid_command
     name: simplesocket_mid
     value_template: &simplesocket_value_template >-
-      {% if value == "AVAILABLE" %}
-        Free
-      {% elif value == "CHARGING" %}
-        Charging
-      {% elif value == "SUSPENDED_EV" %}
-        Squatting
-      {% else %}
-        {{ value }}
-      {% endif %}
+      {% set map = {
+        "AVAILABLE": "Free",
+        "CHARGING": "Charging",
+        "FAULED": "Out of service",
+        "FINISHING": "Charging (Finishing)",
+        "MM_AVAILABLE": "Free",
+        "MM_CONNECTED": "Charging (Smart)",
+        "PREPARING": "Plugged In",
+        "SUSPENDED_EV": "Squatting",
+        "SUSPENDED_EVSE": "Squatting",
+      } %}
+
+      {{ map[value] | default(value) }}
     scan_interval: 300
   - platform: command_line
     command: !secret simplesocket_top_command

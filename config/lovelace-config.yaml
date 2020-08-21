@@ -1,0 +1,8 @@
+views:
+  - badges: []
+    cards:
+      - entities:
+          - entity: input_number.price_per_kwh
+        title: Configurables
+        type: entities
+

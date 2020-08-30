@@ -150,6 +150,10 @@ views:
         hours_to_show: 12
         type: map
       - entities:
+          - entity: sensor.kona_odometer
+            name: Odometer
+          - entity: binary_sensor.kona_engine
+            name: Engine
           - entity: binary_sensor.kona_locked
             name: Doors
           - type: divider
@@ -162,8 +166,8 @@ views:
           - entity: binary_sensor.kona_battery_charging
             name: Charging
           - entity: sensor.kona_charge_done
-            name: Remaining Charge Time
             icon: 'mdi:clock'
+            name: Remaining Charge Time
           - type: divider
           - entity: sensor.kona_updated
             icon: 'mdi:clock'

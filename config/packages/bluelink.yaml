@@ -46,6 +46,12 @@ sensor:
 
 binary_sensor:
   - platform: mqtt
+    name: "Kona Engine"
+    payload_on: true
+    payload_off: false
+    state_topic: "kona/status"
+    value_template: '{{ value_json["engine"] }}'
+  - platform: mqtt
     name: "Kona Locked"
     payload_on: false
     payload_off: true
@@ -67,6 +73,8 @@ homeassistant:
       icon: mdi:ev-station
     sensor.kona_12v_battery:
       device_class: battery
+    sensor.kona_odometer:
+      icon: mdi:speedometer-medium
     sensor.kona_range:
       icon: mdi:speedometer-medium
 

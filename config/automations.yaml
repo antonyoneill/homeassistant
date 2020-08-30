@@ -1,0 +1,12 @@
+- id: '1598094242378'
+  alias: balcony movement
+  description: ''
+  trigger:
+  - entity_id: binary_sensor.balcony_motion
+    platform: state
+    to: 'on'
+  condition: []
+  action:
+  - data:
+      message: Balcony Movement
+    service: notify.mobile_app_sm_g975f

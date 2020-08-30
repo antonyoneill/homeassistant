@@ -126,12 +126,13 @@ views:
   - badges: []
     cards:
       - entities:
-          - entity: binary_sensor.hallway_motion
           - entity: binary_sensor.front_door
+          - entity: binary_sensor.hallway_motion
           - entity: binary_sensor.spare_room_window_break
+          - entity: binary_sensor.spare_room_window
           - entity: binary_sensor.bedroom_left_door
           - entity: binary_sensor.bedroom_right_door
-          - entity: binary_sensor.spare_room_window
+          - entity: binary_sensor.balcony_motion
         title: Sensors
         type: entities
       - entity: alarm_control_panel.alarm
@@ -139,6 +140,10 @@ views:
           - arm_home
           - arm_away
         type: alarm-panel
+      - type: entities
+        title: Tamper Sensors
+        entities:
+          - entity: binary_sensor.balcony_tamper
     icon: 'mdi:motion-sensor'
     path: physical
     title: ''

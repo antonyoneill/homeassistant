@@ -7,6 +7,14 @@ alarm_control_panel:
     trigger_time: 300
 
 automation:
+  - alias: 'Trigger alarm on tamper'
+    trigger:
+      - platform: state
+        entity_id: group.tamper_sensors
+        to: 'on'
+    action:
+      service: alarm_control_panel.alarm_trigger
+      entity_id: alarm_control_panel.alarm
   - alias: 'Trigger alarm while armed away'
     trigger:
       - platform: state
@@ -68,6 +76,10 @@ alert:
       - alarm
 
 group:
+  tamper_sensors:
+    name: Tamper Sensors
+    entities:
+      - binary_sensor.balcony_tamper
   home_alarm_sensors:
     name: Home Alarm Sensors
     entities:
@@ -76,6 +88,7 @@ group:
       - binary_sensor.bedroom_left_door
       - binary_sensor.bedroom_right_door
       - binary_sensor.spare_room_window
+      - binary_sensor.balcony_motion
   away_alarm_sensors:
     name: Away Alarm Sensors
     entities:

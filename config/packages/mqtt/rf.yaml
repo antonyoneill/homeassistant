@@ -65,6 +65,28 @@ binary_sensor:
     payload_not_available: "Offline"
     device_class: vibration
     qos: 1
+  - platform: mqtt
+    name: 'Balcony Motion'
+    state_topic: 'tele/rf/RESULT'
+    value_template: '{{ value_json.RfReceived.Data }}'
+    payload_on: !secret rf_balcony_motion
+    payload_off: clear_balcony_motion
+    availability_topic: "tele/rf/LWT"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+    device_class: motion
+    qos: 1
+  - platform: mqtt
+    name: 'Balcony Tamper'
+    state_topic: 'tele/rf/RESULT'
+    value_template: '{{ value_json.RfReceived.Data }}'
+    payload_on: !secret rf_balcony_tamper
+    payload_off: clear_balcony_tamper
+    availability_topic: "tele/rf/LWT"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+    device_class: problem
+    qos: 1
 
 group:
   physical_sensors:
@@ -76,6 +98,8 @@ group:
       - binary_sensor.bedroom_left_door
       - binary_sensor.bedroom_right_door
       - binary_sensor.spare_room_window_break
+      - binary_sensor.balcony_motion
+      - binary_sensor.balcony_tamper
 
 automation:
   - alias: Clear Hallway Motion
@@ -102,5 +126,29 @@ automation:
         data:
           topic: tele/rf/RESULT
           payload: clear_spare_room_window_break
+  - alias: Clear Balcony Motion
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.balcony_motion
+        to: 'on'
+        for:
+          seconds: 5
+    action:
+      - service: mqtt.publish
+        data:
+          topic: tele/rf/RESULT
+          payload: clear_balcony_motion
+  - alias: Clear Balcony Tamper
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.balcony_motion
+        to: 'on'
+        for:
+          minutes: 10
+    action:
+      - service: mqtt.publish
+        data:
+          topic: tele/rf/RESULT
+          payload: clear_balcony_tamper
 
 

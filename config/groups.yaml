@@ -1,7 +1,7 @@
 watch:
   name: Watch
   entities:
-    - light.everspring_ad146_in_wall_dimmer_module_level
+    - light.lounge
     - light.lounge_lamp
-    - light.fibaro_system_fgd212_dimmer_2_level_3
-    - light.fibaro_system_fgd212_dimmer_2_level_4
+    - light.kitchen
+    - light.bedroom

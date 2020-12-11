@@ -1,0 +1,25 @@
+---
+automation:
+  - id: '1607719631516'
+    alias: Christmas Tree On
+    description: ''
+    trigger:
+    - platform: state
+      entity_id: binary_sensor.hallway_motion
+      to: 'on'
+    condition:
+    - condition: time
+      after: 07:00
+    action:
+    - type: turn_on
+      device_id: 2f77e7bdc6922017942c9b3c553ead05
+      entity_id: switch.wall_plug_1
+      domain: switch
+    mode: single
+
+homeassistant:
+  customize:
+    switch.wall_plug_1:
+      friendly_name: 'Christmas Tree'
+      icon: 'mdi:pine-tree'
+

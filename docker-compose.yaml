@@ -3,8 +3,7 @@ version: '3'
 services:
   homeassistant:
     container_name: home-assistant
-    #    image: homeassistant/home-assistant:stable
-    image: 71082a2d5f96
+    image: homeassistant/home-assistant:0.118.5
     volumes:
       - ./config:/config
       - /dev/bus/usb:/dev/bus/usb

@@ -9,15 +9,14 @@ automation:
       event_type: zwave.scene_activated
       platform: event
     action:
-    - device_id: 0b840fc0d5924903be494f3fda187d21
-      domain: light
-      entity_id: light.kitchen
-      type: turn_off
-    - device_id: ea6f01621a9a4daf91211d6a9dadcadf
-      domain: light
-      entity_id: light.lounge
-      type: turn_off
-    - data:
-        payload: 'OFF'
-        topic: cmnd/lamp/POWER
-      service: mqtt.publish
+    - service: homeassistant.turn_off
+      data:
+        entity_id: group.front_room
+
+group:
+  front_room:
+    name: Front Room
+    entities:
+      - light.lounge
+      - light.lounge_lamp
+      - light.kitchen

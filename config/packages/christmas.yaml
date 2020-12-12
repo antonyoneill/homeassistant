@@ -9,7 +9,8 @@ automation:
       to: 'on'
     condition:
     - condition: time
-      after: 07:00
+      after: '07:00'
+      before: '20:00'
     action:
     - type: turn_on
       device_id: 2f77e7bdc6922017942c9b3c553ead05

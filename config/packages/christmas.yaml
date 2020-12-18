@@ -9,7 +9,7 @@ automation:
       to: 'on'
     condition:
     - condition: time
-      after: '07:00'
+      after: '09:00'
       before: '20:00'
     action:
     - type: turn_on

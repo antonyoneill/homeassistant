@@ -20,4 +20,3 @@ group:
       - light.lounge
       - light.lounge_lamp
       - light.kitchen
-      - switch.wall_plug_1

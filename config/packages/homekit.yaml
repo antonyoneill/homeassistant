@@ -1,0 +1,7 @@
+discovery:
+  enable:
+    - homekit
+
+logger:
+  logs:
+    homeassistant.components.homekit: debug

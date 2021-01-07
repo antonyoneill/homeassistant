@@ -11,8 +11,6 @@ services:
     environment:
       USER_ID: 1001
       GROUP_ID: 1001
-    devices:
-      - /dev/ttyAMA0
     network_mode: host
   mosquitto:
     image: "eclipse-mosquitto:1.6.9"

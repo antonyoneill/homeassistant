@@ -5,14 +5,14 @@ logger:
 sensor:
   - platform: template
     sensors:
-      temperature_living_room:
+      temperature_lounge_kitchen:
         friendly_name: "Lounge & Kitchen Temperature"
-        value_template: "{{ state_attr('climate.living_room', 'current_temperature') }}"
+        value_template: "{{ state_attr('climate.lounge_kitchen', 'current_temperature') }}"
         unit_of_measurement: "°C"
         device_class: "temperature"
-      temperature_hallway_bathroom:
+      temperature_bathroom_hallway:
         friendly_name: "Hallway & Bathroom Temperature"
-        value_template: "{{ state_attr('climate.hallway_bathroom', 'current_temperature') }}"
+        value_template: "{{ state_attr('climate.bathroom_hallway', 'current_temperature') }}"
         unit_of_measurement: "°C"
         device_class: "temperature"
       temperature_master_bedroom:
@@ -29,30 +29,30 @@ sensor:
 switch:
   - platform: template
     switches:
-      heating_living_room:
+      heating_lounge_kitchen:
         friendly_name: "Heating Living Room"
-        value_template: "{{ 'on' if states('switch.living_room_standby') == 'off' else 'off' }}"
-        icon_template: "{{ 'mdi:fire' if states('switch.heating_living_room') == 'on' else 'mdi:snowflake' }}"
+        value_template: "{{ 'on' if states('switch.lounge_kitchen_standby') == 'off' else 'off' }}"
+        icon_template: "{{ 'mdi:fire' if states('switch.heating_lounge_kitchen') == 'on' else 'mdi:snowflake' }}"
         turn_on:
           service: switch.turn_off
           data:
-            entity_id: switch.living_room_standby
+            entity_id: switch.lounge_kitchen_standby
         turn_off:
           service: switch.turn_on
           data:
-            entity_id: switch.living_room_standby
-      heating_hallway_bathroom:
+            entity_id: switch.lounge_kitchen_standby
+      heating_bathroom_hallway:
         friendly_name: "Heating Hallway & Bathroom"
-        value_template: "{{ 'on' if states('switch.hallway_bathroom_standby') == 'off' else 'off' }}"
-        icon_template: "{{ 'mdi:fire' if states('switch.heating_hallway_bathroom') == 'on' else 'mdi:snowflake' }}"
+        value_template: "{{ 'on' if states('switch.bathroom_hallway_standby') == 'off' else 'off' }}"
+        icon_template: "{{ 'mdi:fire' if states('switch.heating_bathroom_hallway') == 'on' else 'mdi:snowflake' }}"
         turn_on:
           service: switch.turn_off
           data:
-            entity_id: switch.hallway_bathroom_standby
+            entity_id: switch.bathroom_hallway_standby
         turn_off:
           service: switch.turn_on
           data:
-            entity_id: switch.hallway_bathroom_standby
+            entity_id: switch.bathroom_hallway_standby
       heating_master_bedroom:
         friendly_name: "Heating Bedroom"
         value_template: "{{ 'on' if states('switch.master_bedroom_standby') == 'off' else 'off' }}"

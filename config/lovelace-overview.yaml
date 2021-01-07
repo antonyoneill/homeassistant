@@ -19,7 +19,7 @@ views:
           - type: divider
           - entity: switch.circadian_lighting_front_room_circadian
           - type: divider
-          - entity: sensor.temperature_living_room
+          - entity: sensor.temperature_lounge_kitchen
             name: Temperature
         show_header_toggle: false
         title: Lounge
@@ -40,7 +40,7 @@ views:
           - entity: light.bathroom
           - entity: switch.bathroom_fan
           - type: divider
-          - entity: sensor.temperature_hallway_bathroom
+          - entity: sensor.temperature_bathroom_hallway
             name: Temperature
         show_header_toggle: false
         type: entities
@@ -65,25 +65,20 @@ views:
         show_header_toggle: false
         title: Washing Machine
         type: entities
-      - type: conditional
-        conditions:
-          - entity: zwave.wall_plug_1
-            state: ready
-        card:
-          type: entities
-          entities:
-            - entity: binary_sensor.wall_plug_1
-              name: On / Off
-            - type: divider
-            - entity: sensor.wall_plug_1_power
-              name: Current Draw
-            - type: divider
-            - entity: sensor.wall_plug_1_energy
-              name: Energy since reset
-            - entity: sensor.wall_plug_1_cost
-              name: Cost since reset
-          title: Wall Plug 1
-          state_color: true
+      - type: entities
+        entities:
+          - entity: binary_sensor.wall_plug_1
+            name: On / Off
+          - type: divider
+          - entity: sensor.wall_plug_1_power
+            name: Current Draw
+          - type: divider
+          - entity: sensor.wall_plug_1_energy
+            name: Energy since reset
+          - entity: sensor.wall_plug_1_cost
+            name: Cost since reset
+        title: Wall Plug 1
+        state_color: true
     icon: 'mdi:home'
     path: home
     title: ''
@@ -99,18 +94,18 @@ views:
           - type: vertical-stack
             cards:
               - type: thermostat
-                entity: climate.living_room
+                entity: climate.lounge_kitchen
               - type: button
                 icon_height: 2em
-                entity: switch.heating_living_room
+                entity: switch.heating_lounge_kitchen
                 name: ' '
           - type: vertical-stack
             cards:
               - type: thermostat
-                entity: climate.hallway_bathroom
+                entity: climate.bathroom_hallway
               - type: button
                 icon_height: 2em
-                entity: switch.heating_hallway_bathroom
+                entity: switch.heating_bathroom_hallway
                 name: ' '
           - type: vertical-stack
             cards:
@@ -130,14 +125,14 @@ views:
                 name: ' '
       - type: history-graph
         entities:
-          - entity: climate.living_room
+          - entity: climate.lounge_kitchen
             name: ' '
         hours_to_show: 6
         refresh_interval: 320
         title: Lounge & Kitchen
       - type: history-graph
         entities:
-          - entity: climate.hallway_bathroom
+          - entity: climate.bathroom_hallway
             name: ' '
         hours_to_show: 6
         refresh_interval: 320

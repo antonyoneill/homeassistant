@@ -1,7 +1,83 @@
-discovery:
-  enable:
-    - homekit
-
 logger:
   logs:
     homeassistant.components.homekit: debug
+
+sensor:
+  - platform: template
+    sensors:
+      temperature_living_room:
+        friendly_name: "Lounge & Kitchen Temperature"
+        value_template: "{{ state_attr('climate.living_room', 'current_temperature') }}"
+        unit_of_measurement: "°C"
+        device_class: "temperature"
+      temperature_hallway_bathroom:
+        friendly_name: "Hallway & Bathroom Temperature"
+        value_template: "{{ state_attr('climate.hallway_bathroom', 'current_temperature') }}"
+        unit_of_measurement: "°C"
+        device_class: "temperature"
+      temperature_master_bedroom:
+        friendly_name: "Bedroom Temperature"
+        value_template: "{{ state_attr('climate.master_bedroom', 'current_temperature') }}"
+        unit_of_measurement: "°C"
+        device_class: "temperature"
+      temperature_study:
+        friendly_name: "Study Temperature"
+        value_template: "{{ state_attr('climate.study', 'current_temperature') }}"
+        unit_of_measurement: "°C"
+        device_class: "temperature"
+
+switch:
+  - platform: template
+    switches:
+      heating_living_room:
+        friendly_name: "Heating Living Room"
+        value_template: "{{ 'on' if states('switch.living_room_standby') == 'off' else 'off' }}"
+        icon_template: "{{ 'mdi:fire' if states('switch.heating_living_room') == 'on' else 'mdi:snowflake' }}"
+        turn_on:
+          service: switch.turn_off
+          data:
+            entity_id: switch.living_room_standby
+        turn_off:
+          service: switch.turn_on
+          data:
+            entity_id: switch.living_room_standby
+      heating_hallway_bathroom:
+        friendly_name: "Heating Hallway & Bathroom"
+        value_template: "{{ 'on' if states('switch.hallway_bathroom_standby') == 'off' else 'off' }}"
+        icon_template: "{{ 'mdi:fire' if states('switch.heating_hallway_bathroom') == 'on' else 'mdi:snowflake' }}"
+        turn_on:
+          service: switch.turn_off
+          data:
+            entity_id: switch.hallway_bathroom_standby
+        turn_off:
+          service: switch.turn_on
+          data:
+            entity_id: switch.hallway_bathroom_standby
+      heating_master_bedroom:
+        friendly_name: "Heating Bedroom"
+        value_template: "{{ 'on' if states('switch.master_bedroom_standby') == 'off' else 'off' }}"
+        icon_template: "{{ 'mdi:fire' if states('switch.heating_master_bedroom') == 'on' else 'mdi:snowflake' }}"
+        turn_on:
+          service: switch.turn_off
+          data:
+            entity_id: switch.master_bedroom_standby
+        turn_off:
+          service: switch.turn_on
+          data:
+            entity_id: switch.master_bedroom_standby
+      heating_study:
+        friendly_name: "Study Room"
+        value_template: "{{ 'on' if states('switch.study_standby') == 'off' else 'off' }}"
+        icon_template: "{{ 'mdi:fire' if states('switch.heating_study') == 'on' else 'mdi:snowflake' }}"
+        turn_on:
+          service: switch.turn_off
+          data:
+            entity_id: switch.study_standby
+        turn_off:
+          service: switch.turn_on
+          data:
+            entity_id: switch.study_standby
+homeassistant:
+  customize_glob:
+    "switch.*_standby":
+      icon: 'mdi:snowflake'

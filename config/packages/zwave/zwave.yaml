@@ -3,6 +3,24 @@ zwave:
   device_config: !include zwave_device_config.yaml
   network_key: !secret zwave_network_key
 
+sensor:
+  - platform: template
+    sensors:
+      wall_plug_1_cost:
+        friendly_name: "Wall Plug 1 Cost"
+        value_template: >-
+          {{ '{:,.2f}'.format(states('sensor.wall_plug_1_energy')|float * states('input_number.price_per_kwh') | float) }}
+        unit_of_measurement: '£'
+        icon_template: 'mdi:currency-gbp'
+
+binary_sensor:
+  - platform: template
+    sensors:
+      wall_plug_1:
+        friendly_name: "Wall Plug 1"
+        value_template: "{{ states('switch.wall_plug_1') == 'on'  }}"
+        device_class: 'power'
+
 homeassistant:
   customize:
     light.lounge:

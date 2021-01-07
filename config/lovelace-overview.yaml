@@ -160,6 +160,19 @@ views:
       - entity: media_player.home_group
         type: media-control
     icon: 'mdi:music'
+  - icon: 'hass:pi-hole'
+    badges: []
+    cards:
+      - type: entities
+        entities:
+          - entity: switch.pi_hole
+          - entity: sensor.pi_hole_ads_blocked_today
+        title: Pi-Hole
+        show_header_toggle: false
+        footer:
+          type: buttons
+          entities:
+            - script.pause_pi_hole
   - badges: []
     cards:
       - content: >-

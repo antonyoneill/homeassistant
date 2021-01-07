@@ -1,8 +1,6 @@
 views:
   - badges: []
     cards:
-      - entity: weather.met_office_southwark
-        type: weather-forecast
       - card:
           entity: input_boolean.washing_machine_needs_emptying
           type: button
@@ -20,6 +18,9 @@ views:
           - entity: light.lounge_lamp
           - type: divider
           - entity: switch.circadian_lighting_front_room_circadian
+          - type: divider
+          - entity: sensor.temperature_living_room
+            name: Temperature
         show_header_toggle: false
         title: Lounge
         type: entities
@@ -29,14 +30,26 @@ views:
             type: 'custom:slider-entity-row'
           - type: divider
           - entity: switch.circadian_lighting_bedroom_circadian
+          - type: divider
+          - entity: sensor.temperature_master_bedroom
+            name: Temperature
         show_header_toggle: false
         title: Bedroom
         type: entities
       - entities:
           - entity: light.bathroom
           - entity: switch.bathroom_fan
+          - type: divider
+          - entity: sensor.temperature_hallway_bathroom
+            name: Temperature
         show_header_toggle: false
+        type: entities
         title: Bathroom
+      - entities:
+          - entity: sensor.temperature_study
+            name: Temperature
+        show_header_toggle: false
+        title: Study
         type: entities
       - entities:
           - entity: binary_sensor.washing_machine_running
@@ -52,9 +65,97 @@ views:
         show_header_toggle: false
         title: Washing Machine
         type: entities
+      - type: conditional
+        conditions:
+          - entity: zwave.wall_plug_1
+            state: ready
+        card:
+          type: entities
+          entities:
+            - entity: binary_sensor.wall_plug_1
+              name: On / Off
+            - type: divider
+            - entity: sensor.wall_plug_1_power
+              name: Current Draw
+            - type: divider
+            - entity: sensor.wall_plug_1_energy
+              name: Energy since reset
+            - entity: sensor.wall_plug_1_cost
+              name: Cost since reset
+          title: Wall Plug 1
+          state_color: true
     icon: 'mdi:home'
     path: home
     title: ''
+  - title: ''
+    path: ''
+    icon: 'mdi:thermometer'
+    panel: false
+    badges: []
+    cards:
+      - type: grid
+        columns: 2
+        cards:
+          - type: vertical-stack
+            cards:
+              - type: thermostat
+                entity: climate.living_room
+              - type: button
+                icon_height: 2em
+                entity: switch.heating_living_room
+                name: ' '
+          - type: vertical-stack
+            cards:
+              - type: thermostat
+                entity: climate.hallway_bathroom
+              - type: button
+                icon_height: 2em
+                entity: switch.heating_hallway_bathroom
+                name: ' '
+          - type: vertical-stack
+            cards:
+              - type: thermostat
+                entity: climate.master_bedroom
+              - type: button
+                icon_height: 2em
+                entity: switch.heating_master_bedroom
+                name: ' '
+          - type: vertical-stack
+            cards:
+              - type: thermostat
+                entity: climate.study
+              - type: button
+                icon_height: 2em
+                entity: switch.heating_study
+                name: ' '
+      - type: history-graph
+        entities:
+          - entity: climate.living_room
+            name: ' '
+        hours_to_show: 6
+        refresh_interval: 320
+        title: Lounge & Kitchen
+      - type: history-graph
+        entities:
+          - entity: climate.hallway_bathroom
+            name: ' '
+        hours_to_show: 6
+        refresh_interval: 320
+        title: Hallway & Bathroom
+      - type: history-graph
+        entities:
+          - entity: climate.master_bedroom
+            name: ' '
+        hours_to_show: 6
+        refresh_interval: 320
+        title: Master Bedroom
+      - type: history-graph
+        entities:
+          - entity: climate.study
+            name: ' '
+        hours_to_show: 6
+        refresh_interval: 320
+        title: Study
   - badges: []
     cards:
       - entity: media_player.samsung_tv_remote
@@ -140,10 +241,10 @@ views:
           - arm_home
           - arm_away
         type: alarm-panel
-      - type: entities
-        title: Tamper Sensors
-        entities:
+      - entities:
           - entity: binary_sensor.balcony_tamper
+        title: Tamper Sensors
+        type: entities
     icon: 'mdi:motion-sensor'
     path: physical
     title: ''
@@ -163,7 +264,11 @@ views:
             name: Doors
           - type: divider
           - entity: sensor.kona_battery
+            icon: 'mdi:car-electric'
             name: Battery
+          - entity: sensor.kona_battery_kwh
+            icon: 'mdi:battery-charging'
+            name: Charge (kWh)
           - entity: sensor.kona_12v_battery
             name: 12v Battery
           - entity: sensor.kona_range
@@ -181,7 +286,22 @@ views:
         type: entities
       - entities:
           - entity: sensor.simplesocket_mid
+          - entity: input_boolean.mid_free_alarm
           - entity: sensor.simplesocket_top
         title: Street Charging
         type: entities
-    icon: 'mdi:car'
+    icon: 'mdi:car-electric'
+  - badges: []
+    cards:
+      - entities:
+          - entity: person.antony
+        hours_to_show: 24
+        type: map
+      - entities:
+          - entity: device_tracker.iphone
+          - entity: person.antony
+        title: homeness
+        type: entities
+    icon: ''
+    path: ant
+    title: ant

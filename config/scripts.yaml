@@ -1,0 +1,7 @@
+test_network_speed:
+  alias: Test Network Speed
+  sequence:
+  - service: speedtestdotnet.speedtest
+    data: {}
+  mode: single
+  icon: mdi:speedometer

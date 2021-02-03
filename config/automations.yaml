@@ -10,3 +10,34 @@
   - data:
       message: Balcony Movement
     service: notify.mobile_app_sm_g975f
+- id: '1611908512728'
+  alias: Bedroom Light Brightness
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: light.bedroom
+    from: 'off'
+    to: 'on'
+  condition:
+  - condition: sun
+    before: sunset
+    after: sunrise
+  action:
+  - service: light.turn_on
+    data:
+      brightness: 256
+    entity_id: light.bedroom
+  mode: single
+- id: '1612102431277'
+  alias: cancel washing machine when started
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.washing_machine_running
+    to: 'on'
+  condition: []
+  action:
+  - service: alert.turn_off
+    data: {}
+    entity_id: alert.washing_machine_needs_emptying
+  mode: single

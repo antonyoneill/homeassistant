@@ -4,9 +4,10 @@ automation:
     alias: Bottom Left Double Tap
     trigger:
     - event_data:
-        entity_id: zwave.kitchen_dimmer
-        scene_id: 14
-      event_type: zwave.scene_activated
+        node_id: 4
+        scene_value_id: 14
+        scene_value_label: Scene
+      event_type: ozw.scene_activated
       platform: event
     action:
     - service: homeassistant.turn_off

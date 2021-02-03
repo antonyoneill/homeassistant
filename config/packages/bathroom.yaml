@@ -1,32 +1,47 @@
 automation:
-  - id: 1592429696929dsfs
-    alias: Bathroom Fan Off
-    description: ''
+  - alias: Control Fan Timer After Lights
     trigger:
-    - entity_id: light.bathroom
-      for: 00:02:00
+      entity_id: light.bathroom
       platform: state
       to: 'off'
-    condition: []
     action:
-    - device_id: 975051d5b52e4c1cb5a3f2df4aa538ce
-      domain: switch
-      entity_id: switch.bathroom_fan
-      type: turn_off
-  - id: '1592429696929'
-    alias: Bathroom Fan On
-    description: ''
+      - service: timer.start
+        data:
+          entity_id: timer.bathroom_fan 
+          duration: 00:02:00
+  - alias: Control Fan Automatically
     trigger:
-    - entity_id: light.bathroom
-      for: 00:00:15
-      platform: state
-      to: 'on'
-    condition:
-    - after: 06:00
-      before: '23:30'
-      condition: time
+      - platform: state
+        entity_id: binary_sensor.bathroom_fan_demand
     action:
-    - device_id: 975051d5b52e4c1cb5a3f2df4aa538ce
-      domain: switch
-      entity_id: switch.bathroom_fan
-      type: turn_on
+      - service_template: >
+          {% if states('binary_sensor.bathroom_fan_demand') == 'on' %}
+            switch.turn_on
+          {% else %}
+            switch.turn_off
+          {% endif %}  
+        entity_id: switch.bathroom_fan
+
+binary_sensor:                          
+  - platform: template                
+    sensors:
+      bathroom_fan_demand:
+        value_template: >-
+          {{
+            (now().hour <= 23 and now().hour >= 6)
+            and (
+              (states('sensor.bathroom_humidity') | int > 60)
+              or (states('timer.bathroom_fan') == 'active')
+            )
+          }}
+
+script:
+  start_bathroom_fan_timer:
+    sequence:
+      - service: timer.start
+        data:
+          entity_id: timer.bathroom_fan
+          duration: 00:20:00
+
+timer:
+    bathroom_fan: ~

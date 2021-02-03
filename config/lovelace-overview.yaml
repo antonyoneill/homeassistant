@@ -39,12 +39,23 @@ views:
       - entities:
           - entity: light.bathroom
           - entity: switch.bathroom_fan
+          - entity: binary_sensor.bathroom_fan_demand
+          - entity: timer.bathroom_fan
           - type: divider
           - entity: sensor.temperature_bathroom_hallway
             name: Temperature
+          - entity: sensor.bathroom_temperature
+            name: Probe
+          - entity: sensor.bathroom_humidity
+            name: Humidity
         show_header_toggle: false
         type: entities
         title: Bathroom
+        footer:
+          type: buttons
+          entities:
+            - entity: script.start_bathroom_fan_timer
+              icon: 'mdi:emoticon-poop'
       - entities:
           - entity: sensor.temperature_study
             name: Temperature
